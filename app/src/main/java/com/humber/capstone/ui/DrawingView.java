@@ -1,4 +1,4 @@
-package com.humber.capstone;
+package com.humber.capstone.ui;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,6 +15,8 @@ import android.view.MotionEvent;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.TypedValue;
+
+import com.humber.capstone.R;
 
 public class DrawingView extends View {
 

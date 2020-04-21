@@ -91,8 +91,7 @@ public class BluetoothConnectActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // Bind to the service
-      //  bindService(new Intent(this, BluetoothConnectionService.class), mConnection,Context.BIND_AUTO_CREATE);
+
     }
 
 

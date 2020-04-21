@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         drawingApp();
         connectBTApp();
         sendText();
+        emojies();
     }
 
     public void drawingApp(){

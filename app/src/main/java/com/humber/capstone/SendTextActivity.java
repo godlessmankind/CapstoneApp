@@ -47,9 +47,6 @@ public class SendTextActivity extends AppCompatActivity {
         sendTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent sendTextIntent = new Intent(SendTextActivity.this,BluetoothConnectionService.class);
-//                intent.putExtra("textData",textToSend.getText().toString());
-//                startActivity(intent);
                 if (!bound) return;
                 // Create and send a message to the service, using a supported 'what' value
                 Message msg = Message.obtain(null, 1, textToSend.getText().toString());

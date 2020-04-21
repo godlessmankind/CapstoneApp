@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".DrawingAppActivity" >
 
-    <com.humber.capstone.DrawingView
+    <com.humber.capstone.ui.DrawingView
         android:id="@+id/drawing"
         android:layout_width="fill_parent"
         android:layout_height="0dp"

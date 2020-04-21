@@ -1,7 +1,6 @@
 package com.humber.capstone;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +20,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.widget.Toast;
 
-
+import com.humber.capstone.ui.DrawingView;
 
 
 public class DrawingAppActivity extends AppCompatActivity implements OnClickListener{
