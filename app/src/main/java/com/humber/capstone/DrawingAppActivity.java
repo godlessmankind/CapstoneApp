@@ -1,17 +1,30 @@
 package com.humber.capstone;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.UUID;
 import android.view.View.OnClickListener;
 import android.provider.MediaStore;
@@ -22,9 +35,12 @@ import android.widget.Toast;
 
 import com.humber.capstone.ui.DrawingView;
 
+import static android.os.Environment.DIRECTORY_PICTURES;
+
 
 public class DrawingAppActivity extends AppCompatActivity implements OnClickListener{
 
+    private static final String TAG = DrawGalleryActivity.class.getSimpleName();
     private DrawingView drawView;
     private ImageButton currPaint;
     private ImageButton drawBtn;
@@ -44,8 +60,8 @@ public class DrawingAppActivity extends AppCompatActivity implements OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing_app);
 
-        drawView = (DrawingView)findViewById(R.id.drawing);
 
+        drawView = (DrawingView)findViewById(R.id.drawing);
 
         smallBrush = getResources().getInteger(R.integer.small_size);
         mediumBrush = getResources().getInteger(R.integer.medium_size);
@@ -187,16 +203,14 @@ public class DrawingAppActivity extends AppCompatActivity implements OnClickList
             saveDialog.setMessage("Save drawing to device Gallery?");
             saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int which){
-                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        Log.i("PERMISSION","U DON'T HAVE THIS PERMISSION");
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        Log.d(TAG, "onClick: You don't have WRITE_EXTERNAL_STORAGE permission");
                         ActivityCompat.requestPermissions(DrawingAppActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_ACCESS_WRITE_EXTERNAL_STORAGE);
                     }
                     else{
-                        Log.i("PERMISSION","U HAVE THIS PERMISSION");
                         saveDrawingToStorage();
+                        finish();
                     }
-
                 }
             });
             saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -230,18 +244,35 @@ public class DrawingAppActivity extends AppCompatActivity implements OnClickList
 
     public void saveDrawingToStorage(){
         drawView.setDrawingCacheEnabled(true);
-        String imgSaved = MediaStore.Images.Media.insertImage(
-                getContentResolver(), drawView.getDrawingCache(),
-                UUID.randomUUID().toString()+".png", "drawing");
-        if(imgSaved!=null){
-            Toast savedToast = Toast.makeText(getApplicationContext(),
-                    "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
-            savedToast.show();
+        OutputStream imageOut = null;
+
+
+        File dir = new File(Environment.getExternalStorageDirectory() + "/Pictures/", "Drawings" );
+        if (!dir.exists()) {
+            dir.mkdirs();
+            Log.e(TAG, "Directory should be created");
+        }else{
+            Log.d(TAG, "getAppSpecificAlbumStorageDir: directory is already there");
+        }
+        File file = new File(dir,System.currentTimeMillis()+".png");
+
+        try {
+            imageOut = new FileOutputStream(file);
+            Bitmap bitImage = drawView.getDrawingCache();
+            Bitmap resized = Bitmap.createScaledBitmap(bitImage, 64,64,true);
+            resized.compress(Bitmap.CompressFormat.PNG, 50, imageOut);
+            imageOut.flush();
+            imageOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(imageOut!=null){
+            Toast.makeText(getApplicationContext(),"Drawing saved to Gallery!", Toast.LENGTH_SHORT).show();
             drawView.destroyDrawingCache();
         }else{
-            Toast unsavedToast = Toast.makeText(getApplicationContext(),
-                    "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
-            unsavedToast.show();
+            Toast.makeText(getApplicationContext(), "Oops! Image could not be saved.", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

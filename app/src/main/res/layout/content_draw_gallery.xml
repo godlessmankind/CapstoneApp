@@ -6,18 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".DrawGalleryActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/drawings_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/drawing_app_button">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
     <ImageButton
         android:id="@+id/drawing_app_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/delete_button"
-        android:text="@string/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/send_button"
-        android:text="@string/send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:src="@drawable/brush"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/drawings_recycler_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+<!--    <Button-->
+<!--        android:id="@+id/delete_button"-->
+<!--        android:text="@string/delete"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/drawings_recycler_view"-->
+<!--        app:layout_constraintLeft_toRightOf="@+id/send_button"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
+<!--    <Button-->
+<!--        android:id="@+id/send_button"-->
+<!--        android:text="@string/send"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/drawings_recycler_view"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

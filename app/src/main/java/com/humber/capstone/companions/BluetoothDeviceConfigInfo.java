@@ -1,4 +1,4 @@
-package com.humber.capstone;
+package com.humber.capstone.companions;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,7 +7,7 @@ public class BluetoothDeviceConfigInfo implements Parcelable {
 
 
     private String bluetoothDeviceName;
-        private String bluetoothDeviceAddress;
+    private String bluetoothDeviceAddress;
 
     public static final Creator<BluetoothDeviceConfigInfo> CREATOR = new Creator<BluetoothDeviceConfigInfo>() {
         @Override

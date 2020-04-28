@@ -26,10 +26,8 @@ import java.util.List;
 
 public class EmojiSelectActivity extends AppCompatActivity implements EmojiAdapter.OnItemClickListener{
     private final String TAG = this.getClass().getSimpleName();
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter emojiAdapter;
     private ArrayList<Emoji> emojiesDBList;
-    private int mEmojiId;
+    private String mEmojiId;
     List<Emoji> emojiesList;
 
     private AppDatabase db;
@@ -43,6 +41,7 @@ public class EmojiSelectActivity extends AppCompatActivity implements EmojiAdapt
         setContentView(R.layout.activity_emoji);
         db = AppDatabase.getInstance(this);
 
+//        db.emojiDao().deleteAll();
         int itemCount = db.emojiDao().getCount();
         if (itemCount == 0) {
             emojiesDBList = addEmojiesFromAssetsFolder("emojies");
@@ -91,8 +90,10 @@ public class EmojiSelectActivity extends AppCompatActivity implements EmojiAdapt
     public void sayHello() {
         if (!bound) return;
         // Create and send a message to the service, using a supported 'what' value
-        Message msg = Message.obtain(null, 1, mEmojiId);
+        Message msg = Message.obtain(null, 2, mEmojiId);
+        Log.d(TAG, "sayHello: " + mEmojiId);
         try {
+
             mService.send(msg);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -118,7 +119,8 @@ public class EmojiSelectActivity extends AppCompatActivity implements EmojiAdapt
     @Override
     public void onClick(int position) {
         Emoji emoji = emojiesList.get(position);
-        this.mEmojiId = emoji.getId();
+        this.mEmojiId = Integer.toString(emoji.getId());
         Log.d(TAG, "onClick: " + mEmojiId);
+        sayHello();
     }
 }

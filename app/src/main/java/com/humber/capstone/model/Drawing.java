@@ -1,30 +1,24 @@
 package com.humber.capstone.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "emojies")
-public class Emoji{
-
-
+@Entity(tableName = "drawings", indices = {@Index(value ={"image"}, unique = true)})
+public class Drawing {
 
     @ColumnInfo
     @PrimaryKey(autoGenerate = true)
     public int id;
 
-    @ColumnInfo
-    public String itemName;
-    @ColumnInfo
-    public String category;
+    @NonNull
     @ColumnInfo
     public String image;
 
-    public Emoji(String itemName,String category,String image){
-        this.itemName = itemName;
-        this.category = category;
+    public Drawing(String image){
         this.image = image;
     }
 
@@ -32,9 +26,6 @@ public class Emoji{
         return id;
     }
 
-    public String getItemName() {
-        return itemName.replace("_", " ");
-    }
 
     public String getImage() {
         return image;
@@ -44,10 +35,8 @@ public class Emoji{
 
     @Override
     public String toString() {
-        return "Emoji{" +
+        return "Drawing{" +
                 "id=" + id +
-                ", itemName='" + itemName + '\'' +
-                ", category='" + category + '\'' +
                 ", image='" + image + '\'' +
                 '}';
     }

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.humber.capstone.companions.BluetoothDeviceConfigInfo;
 import com.humber.capstone.services.BluetoothConnectionService;
 
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class BluetoothConnectActivity extends AppCompatActivity {
                 startBluetoothServiceIntent.putExtra("bluetoothServerConfig",new BluetoothDeviceConfigInfo(deviceName,deviceAddress));
                 startService(startBluetoothServiceIntent);
                 sayHello();
+                finish();
 //                stopService(serviceIntent);
             }
         });
@@ -186,7 +188,6 @@ public class BluetoothConnectActivity extends AppCompatActivity {
     }
 
     private void discoverDevices(){
-        Log.i("BUTTON","REFRESH CLICKED");
         Log.d(TAG,"btnRefresh: Looking for unpaired devices.");
 
         checkBluetoothPermissions();

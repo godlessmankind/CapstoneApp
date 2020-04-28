@@ -27,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
         drawApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,DrawingAppActivity.class));
+                startActivity(new Intent(MainActivity.this,DrawGalleryActivity.class));
             }
         });
     }
 
     public void connectBTApp(){
-        Button btApp = findViewById(R.id.bt_menu);
+        ImageButton btApp = findViewById(R.id.bt_menu);
         btApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,32 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void VoiceToText(){
-        ImageButton btApp = findViewById(R.id.send_text);
-        btApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SendTextActivity.class));
-            }
-        });
-    }
-    public void imageGallery(){
-        ImageButton btApp = findViewById(R.id.send_text);
-        btApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SendTextActivity.class));
-            }
-        });
-    }
-    public void picsFromCam(){
-        ImageButton btApp = findViewById(R.id.send_text);
-        btApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SendTextActivity.class));
-            }
-        });
-    }
+
+
 
 }
